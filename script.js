@@ -32,7 +32,7 @@ document.addEventListener("keydown", function (e) {
 
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
-
+/*
 console.log(document.documentElement); // Entire HTML
 console.log(document.head);
 const allSections = document.querySelectorAll(".section");
@@ -93,3 +93,46 @@ logo?.classList.add("c");
 logo?.classList.remove("c");
 logo?.classList.toggle("c");
 logo?.classList.contains("c");
+*/
+
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.querySelector("#section--1");
+
+btnScrollTo?.addEventListener("click", (e) => {
+	const s1coords = section1?.getBoundingClientRect();
+	// console.log(s1coords);
+
+	// console.log(e.target?.getBoundingClientRect());
+
+	// console.log("Current scroll (x/y)", window.pageXOffset, window.pageYOffset);
+
+	// console.log("height/width viewport", document.documentElement.clientHeight, document.documentElement.clientWidth);
+
+	// Scrolling
+	// window.scrollTo(s1coords?.left + window.pageXOffset, s1coords?.top + window.pageYOffset);
+
+	// window.scrollTo({
+	// 	left: s1coords?.left + window.pageXOffset,
+	// 	top: s1coords?.top + window.pageYOffset,
+	// 	behavior: "smooth"
+	// });
+
+	section1?.scrollIntoView({ behavior: "smooth" }); // Only works in modern browsers, use previous if needed support for older browsers
+});
+
+const h1 = document.querySelector("h1");
+// h1?.addEventListener("mouseenter", (e) => {
+// 	console.log("You hovered over the heading 1");
+// });
+
+// Prefer addEventListener of this one:
+// h1.onmouseenter = (e) => {
+// 	console.log("You hovered over the heading 1");
+// };
+
+const logH1 = (e) => {
+	console.log("You hovered over the heading 1");
+	h1?.removeEventListener("mouseenter", logH1);
+};
+
+h1?.addEventListener("mouseenter", logH1);
