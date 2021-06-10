@@ -120,6 +120,8 @@ btnScrollTo?.addEventListener("click", (e) => {
 	section1?.scrollIntoView({ behavior: "smooth" }); // Only works in modern browsers, use previous if needed support for older browsers
 });
 
+/*
+
 const h1 = document.querySelector("h1");
 // h1?.addEventListener("mouseenter", (e) => {
 // 	console.log("You hovered over the heading 1");
@@ -136,3 +138,37 @@ const logH1 = (e) => {
 };
 
 h1?.addEventListener("mouseenter", logH1);
+*/
+
+// Not all events have a capture and bubbling phase (propigate)
+
+const randomInt = (min, max) =>
+	Math.floor(Math.random() * (max - min + 1) + min);
+
+const randomColor = () =>
+	`rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+
+document.querySelector(".nav__link")?.addEventListener("click", function (e) {
+	this.style.backgroundColor = randomColor();
+	// this === e.currentTarget === e.target
+
+	// Stop propigation
+	// e.stopPropagation();
+	console.log("LINK", e.currentTarget);
+});
+document.querySelector(".nav__links")?.addEventListener("click", function (e) {
+	this.style.backgroundColor = randomColor();
+	// e.currentTarget === this
+	// e.target === document.querySelector(".nav__link")
+	console.log("LINKS", e.currentTarget);
+});
+document.querySelector(".nav")?.addEventListener(
+	"click",
+	function (e) {
+		this.style.backgroundColor = randomColor();
+		// e.currentTarget === this
+		// e.target === document.querySelector(".nav__link")
+		console.log("NAV", e.currentTarget);
+	},
+	true // Not used much anymore
+); // Respond as going down to target, called first now
