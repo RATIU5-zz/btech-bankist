@@ -64,3 +64,32 @@ header?.append(message);
 document
 	.querySelector(".btn--close-cookie")
 	?.addEventListener("click", () => message.remove());
+
+// Styles
+
+message.style.backgroundColor = "#37383D";
+message.style.width = "120%";
+// console.log(message.style.height); // Will not work, these are inline styles
+// message.style.height = "100px";
+// console.log(message.style.height); // Will work now after setting inline style
+console.log(getComputedStyle(message).color); // You can call this built in function to get the style before defining it
+
+message.style.height =
+	Number.parseFloat(getComputedStyle(message).height) + 30 + "px";
+
+document.documentElement.style.setProperty("--color-primary", "orangered");
+
+const logo = document.querySelector(".nav__logo");
+console.log(logo.className);
+console.log(logo.getAttribute("designer"));
+logo?.setAttribute("company", "bankist");
+
+console.log(logo.getAttribute("src")); // relative
+console.log(logo.src); // absolute
+
+console.log(logo.dataset.versionNumber);
+
+logo?.classList.add("c");
+logo?.classList.remove("c");
+logo?.classList.toggle("c");
+logo?.classList.contains("c");
