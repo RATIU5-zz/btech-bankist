@@ -80,6 +80,33 @@ document.querySelector(".nav__links")?.addEventListener("click", function (e) {
 });
 
 /////////////////////////////////////////////////////////////////
+
+// Tabbed component
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsContainer = document.querySelector(".operations__tab-container");
+const tabsContent = document.querySelectorAll(".operations__content");
+
+// Using delegation again
+tabsContainer.addEventListener("click", (e) => {
+	const clicked = e.target.closest(".operations__tab");
+	// Guard clause
+	if (!clicked) return;
+
+	// Remove all active class names
+	tabs.forEach((t) => t.classList.remove("operations__tab--active"));
+	tabsContent.forEach((c) =>
+		c.classList.remove("operations__content--active")
+	);
+	// Add active class names
+	clicked.classList.add("operations__tab--active");
+	document
+		.querySelector(`.operations__content--${clicked.dataset.tab}`)
+		?.classList.add("operations__content--active");
+});
+
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 /*
 console.log(document.documentElement); // Entire HTML
 console.log(document.head);
@@ -193,7 +220,7 @@ document.querySelector(".nav")?.addEventListener(
 	},
 	true // Not used much anymore
 ); // Respond as going down to target, called first now
-*/
+
 
 const h1 = document.querySelector("h1");
 
@@ -217,3 +244,4 @@ console.log(h1?.nextSibling);
 [...h1?.parentElement.children].forEach((e) => {
 	if (e !== h1) e.style.transform = "scale(0.5)";
 });
+*/
