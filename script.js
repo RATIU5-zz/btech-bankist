@@ -194,3 +194,26 @@ document.querySelector(".nav")?.addEventListener(
 	true // Not used much anymore
 ); // Respond as going down to target, called first now
 */
+
+const h1 = document.querySelector("h1");
+
+console.log(h1?.querySelectorAll(".highlight"));
+console.log(h1?.childNodes);
+console.log(h1?.children);
+h1.firstElementChild.style.color = "red";
+h1.lastElementChild.style.color = "yellow";
+
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+h1.closest(".header").style.background = "var(--gradient-secondary)";
+
+console.log(h1?.previousElementSibling);
+console.log(h1?.nextElementSibling);
+
+console.log(h1?.previousSibling);
+console.log(h1?.nextSibling);
+
+[...h1?.parentElement.children].forEach((e) => {
+	if (e !== h1) e.style.transform = "scale(0.5)";
+});
