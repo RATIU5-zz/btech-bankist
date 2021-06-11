@@ -1,5 +1,8 @@
 "use strict";
 
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.querySelector("#section--1");
+
 ///////////////////////////////////////
 // Modal window
 
@@ -30,7 +33,52 @@ document.addEventListener("keydown", function (e) {
 	}
 });
 
+///////////////////////////////////////
+// Button scrolling
+btnScrollTo?.addEventListener("click", (e) => {
+	const s1coords = section1?.getBoundingClientRect();
+	// console.log(s1coords);
+
+	// console.log(e.target?.getBoundingClientRect());
+
+	// console.log("Current scroll (x/y)", window.pageXOffset, window.pageYOffset);
+
+	// console.log("height/width viewport", document.documentElement.clientHeight, document.documentElement.clientWidth);
+
+	// Scrolling
+	// window.scrollTo(s1coords?.left + window.pageXOffset, s1coords?.top + window.pageYOffset);
+
+	// window.scrollTo({
+	// 	left: s1coords?.left + window.pageXOffset,
+	// 	top: s1coords?.top + window.pageYOffset,
+	// 	behavior: "smooth"
+	// });
+
+	section1?.scrollIntoView({ behavior: "smooth" }); // Only works in modern browsers, use previous if needed support for older browsers
+});
+
 /////////////////////////////////////////////////////////////////
+// Page navigation
+
+// The following is not efficient, it's not good to add an event listener to every link
+// document.querySelectorAll(".nav__link").forEach((e) => {
+// 	e.addEventListener("click", function (i) {
+// 		i.preventDefault();
+// 		const id = this.getAttribute("href");
+// 		console.log(id);
+// 		document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+// 	});
+// });
+
+// Use event delegation as a better alternative
+document.querySelector(".nav__links")?.addEventListener("click", function (e) {
+	e.preventDefault();
+	if (e.target?.classList.contains("nav__link")) {
+		const id = e.target.getAttribute("href");
+		document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+	}
+});
+
 /////////////////////////////////////////////////////////////////
 /*
 console.log(document.documentElement); // Entire HTML
@@ -93,34 +141,6 @@ logo?.classList.add("c");
 logo?.classList.remove("c");
 logo?.classList.toggle("c");
 logo?.classList.contains("c");
-*/
-
-const btnScrollTo = document.querySelector(".btn--scroll-to");
-const section1 = document.querySelector("#section--1");
-
-btnScrollTo?.addEventListener("click", (e) => {
-	const s1coords = section1?.getBoundingClientRect();
-	// console.log(s1coords);
-
-	// console.log(e.target?.getBoundingClientRect());
-
-	// console.log("Current scroll (x/y)", window.pageXOffset, window.pageYOffset);
-
-	// console.log("height/width viewport", document.documentElement.clientHeight, document.documentElement.clientWidth);
-
-	// Scrolling
-	// window.scrollTo(s1coords?.left + window.pageXOffset, s1coords?.top + window.pageYOffset);
-
-	// window.scrollTo({
-	// 	left: s1coords?.left + window.pageXOffset,
-	// 	top: s1coords?.top + window.pageYOffset,
-	// 	behavior: "smooth"
-	// });
-
-	section1?.scrollIntoView({ behavior: "smooth" }); // Only works in modern browsers, use previous if needed support for older browsers
-});
-
-/*
 
 const h1 = document.querySelector("h1");
 // h1?.addEventListener("mouseenter", (e) => {
@@ -142,6 +162,7 @@ h1?.addEventListener("mouseenter", logH1);
 
 // Not all events have a capture and bubbling phase (propigate)
 
+/*
 const randomInt = (min, max) =>
 	Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -172,3 +193,4 @@ document.querySelector(".nav")?.addEventListener(
 	},
 	true // Not used much anymore
 ); // Respond as going down to target, called first now
+*/
