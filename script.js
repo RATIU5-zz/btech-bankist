@@ -3,6 +3,7 @@
 const btnScrollTo = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector("#section--1");
 
+const header = document.querySelector(".header");
 const nav = document.querySelector(".nav");
 
 const tabs = document.querySelectorAll(".operations__tab");
@@ -124,6 +125,42 @@ nav?.addEventListener("mouseover", handleNavHover.bind(0.5));
 nav?.addEventListener("mouseout", handleNavHover.bind(1));
 
 /////////////////////////////////////////////////////////////////
+// Sticky navigation
+const initialSection1Coords = section1?.getBoundingClientRect();
+// Not efficient and should be avoided
+// window.addEventListener("scroll", (e) => {
+// 	if (window.scrollY > initialSection1Coords.top)
+// 		nav?.classList.add("sticky");
+// 	else nav?.classList.remove("sticky");
+// });
+
+// const obsCallback = (entries, observer) => {
+// 	entries.forEach((entry) => {
+// 		console.log(entry);
+// 	});
+// };
+
+// const obsOptions = {
+// 	root: null,
+// 	threshold: [0, 0.2]
+// };
+
+// // Calls callback when section1 intersects the root (viewport) at threshold percent (10)
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1);
+
+const stickyNav = (entries) => {
+	const [entry] = entries; // same as entries[0]
+	if (!entry.isIntersecting) nav?.classList.add("sticky");
+	else nav?.classList.remove("sticky");
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+	root: null,
+	threshold: 0,
+	rootMargin: `-${nav?.getBoundingClientRect().height}px`
+});
+headerObserver.observe(header);
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 /*
