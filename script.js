@@ -204,6 +204,86 @@ const imgObserver = new IntersectionObserver(loadImg, {
 
 imgTargets.forEach((img) => imgObserver.observe(img));
 
+// Slider
+
+const slider = () => {
+	let currSlide = 0;
+	const slides = document.querySelectorAll(".slide");
+	const btnLeft = document.querySelector(".slider__btn--left");
+	const btnRight = document.querySelector(".slider__btn--right");
+	const dotContainer = document.querySelector(".dots");
+	const maxSlides = slides.length;
+
+	// Space out slides
+	slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`));
+
+	// Slider functions
+	const createDots = () => {
+		console.log(dotContainer);
+		slides.forEach((_, i) => {
+			dotContainer?.insertAdjacentHTML(
+				"beforeend",
+				`<button class="dots__dot" data-slide="${i}"></button>`
+			);
+		});
+	};
+
+	const activateDot = (slide) => {
+		document
+			.querySelectorAll(".dots__dot")
+			.forEach((dot) => dot.classList.remove("dots__dot--active"));
+		document
+			.querySelector(`.dots__dot[data-slide="${slide}"]`)
+			?.classList.add("dots__dot--active");
+	};
+	const goToSlide = (slide) => {
+		slides.forEach((s, i) => {
+			s.style.transform = `translateX(${100 * (i - slide)}%)`;
+		});
+	};
+	const nextSlide = () => {
+		if (currSlide === maxSlides - 1) currSlide = 0;
+		else currSlide++;
+
+		goToSlide(currSlide);
+		activateDot(currSlide);
+	};
+	const prevSlide = () => {
+		if (currSlide === 0) currSlide = maxSlides - 1;
+		else currSlide--;
+
+		goToSlide(currSlide);
+		activateDot(currSlide);
+	};
+
+	// Init function
+	const initSlider = () => {
+		createDots();
+		activateDot(currSlide);
+		goToSlide(0);
+	};
+	initSlider();
+
+	// Event handlers
+	btnRight?.addEventListener("click", nextSlide);
+	btnLeft?.addEventListener("click", prevSlide);
+
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "ArrowLeft") prevSlide();
+
+		if (e.key === "ArrowRight") nextSlide();
+	});
+
+	dotContainer?.addEventListener("click", (e) => {
+		if (e.target.classList.contains("dots__dot")) {
+			const { slide } = e.target.dataset;
+			goToSlide(slide);
+			activateDot(slide);
+		}
+	});
+};
+slider();
+
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////
