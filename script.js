@@ -219,7 +219,6 @@ const slider = () => {
 
 	// Slider functions
 	const createDots = () => {
-		console.log(dotContainer);
 		slides.forEach((_, i) => {
 			dotContainer?.insertAdjacentHTML(
 				"beforeend",
@@ -426,3 +425,15 @@ console.log(h1?.nextSibling);
 	if (e !== h1) e.style.transform = "scale(0.5)";
 });
 */
+
+// document.addEventListener("DOMContentLoaded", () => {
+// 	console.log("HTML parsed and DOM tree built and JS loaded & executed");
+// });
+// window.addEventListener("load", () => {
+// 	console.log("Page fully loaded");
+// });
+
+// window.addEventListener("beforeunload", (e) => {
+// 	e.preventDefault();
+// 	e.returnValue = "";
+// });
